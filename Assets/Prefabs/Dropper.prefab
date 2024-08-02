@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1378157687066046923}
   - component: {fileID: 7585047008479732922}
   - component: {fileID: 3690844337479285019}
+  - component: {fileID: -3421577797459525633}
   - component: {fileID: 5584645045321056042}
   - component: {fileID: -8509328992605009972}
-  - component: {fileID: -3421577797459525633}
   - component: {fileID: -5889244915617619519}
   m_Layer: 0
   m_Name: Dropper
@@ -87,6 +87,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3421577797459525633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213144332356217075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ba1ca28ba6199449406f42eb69c129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wait: 3
+  corner1: {fileID: 0}
+  corner2: {fileID: 0}
+  corner3: {fileID: 0}
+  corner4: {fileID: 0}
 --- !u!65 &5584645045321056042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,19 +152,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3421577797459525633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213144332356217075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ba1ca28ba6199449406f42eb69c129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wait: 3
 --- !u!114 &-5889244915617619519
 MonoBehaviour:
   m_ObjectHideFlags: 0

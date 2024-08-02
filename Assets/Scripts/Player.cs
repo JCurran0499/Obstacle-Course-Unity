@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] float acceleration = 8;
+    [SerializeField] int losingScore = 10;
     int score = 0;
 
     // Start is called before the first frame update
@@ -25,6 +26,12 @@ public class Mover : MonoBehaviour
         {
             score++;
             Debug.Log("You have bumped into something " + score + " times");
+
+            if (score >= losingScore)
+            {
+                Debug.Log("You have lost!");
+                Application.Quit();
+            }
         }
     }
 
@@ -36,6 +43,4 @@ public class Mover : MonoBehaviour
             Input.GetAxis("Vertical") * acceleration * Time.deltaTime
         );
     }
-
-
 }
