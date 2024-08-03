@@ -1,24 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public GameObject endPlatform;
     [SerializeField] float acceleration = 8;
     [SerializeField] int losingScore = 10;
+    [SerializeField] bool mainGame = true;
     int score = 0;
-    bool gameWon = false;
-    bool gameLost = false;
 
     Vector3 originalPos;
+    GameManager manager;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Hello world!");
-        endPlatform.GetComponent<MeshRenderer>().material.color = Color.red;
         originalPos = transform.position;
+        manager = GetComponent<GameManager>();
+
+        if (mainGame)
+        {
+            endPlatform.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        else {
+            endPlatform.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +41,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag != "Floor" && 
             collision.gameObject.tag != "BackWall" &&
             collision.gameObject.tag != "EndPlatform" &&
-            !gameWon && !gameLost
+            manager.GameOngoing()
         ) 
         {
             score++;
@@ -41,8 +50,7 @@ public class Player : MonoBehaviour
             if (score >= losingScore) 
             {
                 Debug.Log("You have lost");
-                gameLost = true;
-                // Application.Quit();
+                manager.LoseGame();
             }
             else 
             {
@@ -50,11 +58,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        else if (collision.gameObject.tag == "EndPlatform" && !gameWon && !gameLost)
+        else if (collision.gameObject.tag == "EndPlatform" && manager.GameOngoing())
         {
             Debug.Log("You win!");
-            gameWon = true;
-            endPlatform.GetComponent<MeshRenderer>().material.color = Color.green;
+            GetComponent<GameManager>().WinGame();
         }
     }
 

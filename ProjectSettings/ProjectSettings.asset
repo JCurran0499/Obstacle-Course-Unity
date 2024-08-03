@@ -765,7 +765,7 @@ PlayerSettings:
   cloudProjectId: f6fdc897-5101-4870-9b2c-3576a20cbbc8
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ObstacleDodge
+  projectName: TestGame
   organizationId: 6ecf589-4899-41f9-af7c-f7791a54d53e
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
