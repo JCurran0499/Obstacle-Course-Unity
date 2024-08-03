@@ -7,6 +7,10 @@ TagManager:
   - Floor
   - BackWall
   - EndPlatform
+  - Dropper
+  - Roller
+  - Guard
+  - Spinner
   layers:
   - Default
   - TransparentFX

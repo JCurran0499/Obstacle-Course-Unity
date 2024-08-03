@@ -24,7 +24,7 @@ public class ObjectHit : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player") {
+        if (collision.gameObject.tag == "Player" && enabled) {
             GetComponent<MeshRenderer>().material.color = Color.red;
             timeRed = Time.time;
             isRed = true;

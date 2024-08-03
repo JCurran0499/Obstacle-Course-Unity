@@ -14,7 +14,6 @@ public class Dropper : MonoBehaviour
     Vector3 originalPos;
     Quaternion originalRot;
 
-    // Start is called before the first frame update
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -26,7 +25,6 @@ public class Dropper : MonoBehaviour
         body.useGravity = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time > wait)

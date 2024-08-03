@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] bool gameOngoing = true;
-    [SerializeField] string mainScene = "MainScene";
-    [SerializeField] string victoryScene = "VictoryScene";
+    bool gameOngoing = true;
+    ObjectHit[] obstacles;
+
+    void Start()
+    {
+        obstacles = FindObjectsOfType<ObjectHit>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,9 +31,9 @@ public class GameManager : MonoBehaviour
 
     private void CheckRestart()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !gameOngoing)
+        if (Input.GetKeyDown(KeyCode.Return) && !gameOngoing)
         {
-            SceneManager.LoadScene(mainScene);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -41,7 +46,22 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
-        SceneManager.LoadScene(victoryScene);
+        gameOngoing = false;
+        foreach (ObjectHit obstacle in obstacles)
+        {
+            if (
+                obstacle.gameObject.tag.Equals("Dropper") ||
+                obstacle.gameObject.tag.Equals("Roller")
+            )
+            {
+                obstacle.gameObject.SetActive(false);
+            }
+
+            else
+            {
+                obstacle.enabled = false;
+            }
+        }
     }
 
     public void LoseGame()
