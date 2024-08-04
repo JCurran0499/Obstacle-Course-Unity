@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public MeshRenderer endPlatform;
     public GameManager manager;
     [SerializeField] float acceleration = 8;
-    [SerializeField] int losingScore = 10;
-    int score = 0;
+
+    bool frozen = false;
 
     Vector3 originalPos;
 
     void Start()
     {
         originalPos = transform.position;
-        endPlatform.material.color = Color.red;
     }
 
     void Update()
     {
-        PlayerMove();
+        PlayerMove();   
     }
 
     void OnCollisionEnter(Collision collision)
@@ -31,16 +29,16 @@ public class Player : MonoBehaviour
             manager.GameOngoing()
         ) 
         {
-            score++;
-            Debug.Log("You have bumped into something " + score + " times");
+            manager.TakeHit();
 
-            if (score >= losingScore) 
+            if (manager.LivesLeft() <= 0) 
             {
                 Debug.Log("You have lost");
                 manager.LoseGame();
             }
             else 
             {
+                frozen = true;
                 transform.position = originalPos;
             }
         }
@@ -48,7 +46,6 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.tag == "EndPlatform" && manager.GameOngoing())
         {
             Debug.Log("You win!");
-            endPlatform.material.color = Color.green;
             manager.WinGame();
         }
     }
@@ -56,9 +53,24 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
-        transform.Translate(
-            Input.GetAxis("Horizontal") * acceleration * Time.deltaTime, 0,
-            Input.GetAxis("Vertical") * acceleration * Time.deltaTime
-        );
+        if (!frozen)
+        {
+            transform.Translate(
+                Input.GetAxis("Horizontal") * acceleration * Time.deltaTime, 0,
+                Input.GetAxis("Vertical") * acceleration * Time.deltaTime
+            );
+        }
+        else
+        {
+            if (
+                Input.GetKeyDown(KeyCode.W) ||
+                Input.GetKeyDown(KeyCode.S) ||
+                Input.GetKeyDown(KeyCode.D) ||
+                Input.GetKeyDown(KeyCode.A)
+            )
+            {
+                frozen = false;
+            }
+        }
     }
 }

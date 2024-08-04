@@ -34,7 +34,7 @@ public class Dropper : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.tag.Equals("Player"))
         {

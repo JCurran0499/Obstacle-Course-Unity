@@ -1,17 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public MeshRenderer endPlatform;
+    public Canvas canvas;
+    [SerializeField] readonly int life = 5;
+    int livesLeft;
+
     bool gameOngoing = true;
     ObjectHit[] obstacles;
+    RawImage[] hearts;
 
     void Start()
     {
+        endPlatform.material.color = Color.red;
         obstacles = FindObjectsOfType<ObjectHit>();
+        hearts = canvas.GetComponentsInChildren<RawImage>();
+        livesLeft = life;
     }
 
     // Update is called once per frame
@@ -37,16 +45,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void TakeHit()
+    {
+        livesLeft--;
+        hearts[livesLeft].enabled = false;
+        Debug.Log("You bumped into something. " + livesLeft + " lives left");
+    }
+
 
     public bool GameOngoing()
     {
         return gameOngoing; 
     }
 
+    public int LivesLeft()
+    {
+        return livesLeft; 
+    }
+
+
 
     public void WinGame()
     {
         gameOngoing = false;
+        endPlatform.material.color = Color.green;
+
         foreach (ObjectHit obstacle in obstacles)
         {
             if (
@@ -61,6 +84,12 @@ public class GameManager : MonoBehaviour
             {
                 obstacle.enabled = false;
             }
+        }
+
+        while (livesLeft > 0)
+        {
+            livesLeft--;
+            hearts[livesLeft].enabled = false;
         }
     }
 
